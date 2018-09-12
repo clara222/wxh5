@@ -8,4 +8,5 @@
 
 declare module '@/utils/wxqrcode.js';
 declare module 'qs';
+declare module 'html2canvas';
 

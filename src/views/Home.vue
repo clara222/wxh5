@@ -2,7 +2,7 @@
   <div class="home">
     <img class="home_logo" src="../assets/home/logo.png"/>
     <div class="home_title">
-      <img src="../assets/home/toptitle.png" alt="" class="home_title_bac shake-slow shake-constant">
+      <img src="../assets/home/toptitle.png" alt="" class="home_title_bac ">
       <!-- <img src="../assets/home/titlefont.png" alt="" class="home_title_font"> -->
     </div>
     <ul class="home_label">
@@ -56,11 +56,10 @@ export default class Home extends Vue {
     width: 100vw;
     height: 100vh;
     background-color: #ffd700;
-    overflow: hidden;
     .home_logo {
-      margin-left: 15pt;
-      margin-top: 15pt;
-      height: 6vh;
+      margin-left: 10px;
+      margin-top: 6px;
+      height: 4vh;
     }
     .home_title {
       width: 94%;
@@ -167,7 +166,7 @@ export default class Home extends Vue {
     .home_bottom {
       position: relative;
       z-index: 400;
-      top: -24vh;
+      top: -26vh;
       margin: 0 24%;
       .home_bottom_btn {
         width: 52vw;

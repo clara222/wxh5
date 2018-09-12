@@ -4,18 +4,18 @@
     <div class='firstPage_top'>
       <img src="../assets/firstpage/TV.png" alt="" class="firstPage_tv">
       <img src="../assets/firstpage/btnlTV.png" alt="" class="firstPage_btnLtv " v-if="istvanimate">
-      <img src="../assets/firstpage/btnTV.png" alt="" class="firstPage_btntv btntvanimate" v-if="!istvanimate">
+      <img src="../assets/firstpage/btnTV.png" alt="" class="firstPage_btntv " v-if="!istvanimate">
       <img src="../assets/firstpage/xhua.jpg" alt="" class="firstPage_backgtv" :class="{'tvanimate': istvanimate  }" v-show='xuhuaImg'>
       <img :src="oplists[indexId].imgurl" alt="" class="firstPage_backgtv" :class="{'tvanimate2': istvanimate  }" v-show='!xuhuaImg'>
     </div>
     <div class='firstPage_font' v-if="!flag">
-      <input type="text" class="inputname" v-model="inputValue" placeholder="请输入你的姓名">
+      <!-- <input type="text" class="inputname" v-model="inputValue" placeholder="请输入你的姓名"> -->
       <img src="../assets/firstpage/startbtn.png" alt="" class="firstPage_title " @click="tvClick">
     </div>
     <ul class='optionList' v-if="flag">
       <li v-for="(item,index) in oplists[indexId].question" :key="index" class="itemstyle" @click="selectClick(oplists[indexId].question[index])">
         <span :style="{backgroundImage: backgroundImg }" v-if="index != selectedId" class=" ">{{item.icon}}</span>
-        <span :style="{backgroundImage: activebackgroundImg }" class="itemstyle_activeFont shake-opacity shake-constant" v-if="index === selectedId">{{item.icon}}</span>
+        <span :style="{backgroundImage: activebackgroundImg }" class="itemstyle_activeFont" v-if="index === selectedId">{{item.icon}}</span>
         <p class='itemstyle_optitle' :class="{'itemstyle_active': index === selectedId}">{{item.optitle}}</p>
       </li>
     </ul>
@@ -220,16 +220,12 @@ export default class About extends Vue {
 
   
   private tvClick() {
-    if (this.inputValue != '') {
       this.istvanimate = true;
       setTimeout(() => {
         this.xuhuaImg = false;
         this.flag = true;
-        console.log(this.flag);
-      }, 1800);
-      console.log(this.flag);
-      this.$store.commit('inputName', this.inputValue);
-    }
+      }, 0);    
+    
   }
    
   private selectClick(optionItem: Option) {
@@ -238,7 +234,6 @@ export default class About extends Vue {
   }
 
   private pagesWitch() {
-    console.log("scoreItem" + this.scoreItem)
     // 当前题目不是最后一个题目 且用户已经选择答案
     if (this.indexId <= this.oplists.length - 2 && this.scoreItem != 0) {
       this.indexId++;
@@ -248,15 +243,14 @@ export default class About extends Vue {
       this.scoreItem = 0;
 
       let score = this.$store.state.score;
-      console.log(score);
+      
       this.resultList.forEach((value, index, array) => {
         if (array[index].score === score)
           this.resultId = index;
       });
       var resContent = encodeURIComponent(this.resultList[this.resultId].conts)
-      console.log(resContent);
-      
-      this.$router.push(`/result?content=${resContent}&userInput=${this.inputValue}`);
+
+      this.$router.push(`/result?content=${resContent}`);
     }
     this.scoreItem = 0;
     this.selectedId = -1;
@@ -291,7 +285,6 @@ p {
     .firstPage_tv {
       width: 94vw;
       margin: 0 3vw;
-      margin-top: 9vw;
     }
     .firstPage_btntv {
       position: relative;
@@ -302,12 +295,12 @@ p {
     .firstPage_btnLtv {
       position: relative;
       top: -47.7vw;
-      left: 47.2vw;
+      left: 47.1vw;
       width: 5.5vw;
     }
-    .btntvanimate {
-      animation: btnAnimate 0.5s linear infinite alternate;
-    }
+    // .btntvanimate {
+    //   animation: btnAnimate 0.5s linear infinite alternate;
+    // }
     .firstPage_backgtv {
       width: 70.6vw;
       position: relative;
@@ -323,7 +316,7 @@ p {
   }
   .firstPage_font {
     position: absolute;
-    top: 57vh;
+    top: 44vh;
     left: 20vw;
     z-index: 20;
     .firstPage_title {
@@ -354,7 +347,7 @@ p {
       width: 80vw;
       height: 11vw;
       line-height: 11vw;
-      margin-bottom: 5vh;
+      margin-bottom: 4vh;
       display: flex;
       justify-content: space-around;
       .itemstyle_optitle {
@@ -382,7 +375,7 @@ p {
   }
   .bottomBtn {
     position: absolute;
-    bottom: 9vh;
+    bottom: 8vh;
     right: 10vw;
     z-index: 20;
     .bottomBtn_switchBtn {

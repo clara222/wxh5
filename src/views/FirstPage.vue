@@ -9,7 +9,7 @@ import { Component, Vue } from 'vue-property-decorator';
   components: {},
 })
 export default class Index extends Vue {
-    beforeCreate() { 
+    created () { 
         if (!this.$route.query.content) {         
            this.$router.push('/relation')
         }

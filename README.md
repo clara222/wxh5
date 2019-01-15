@@ -71,3 +71,44 @@
 将用户的微信头像改成通过我们这边h5的服务器来获取,然后再发给前端头像地址,改成用我们的服务器的地址。
 
 至此，这个项目就算完工了。
+
+**最后**
+
+由于本项目使用微信开发者工具进行本地测试，需配置本地域名（www.example.com），且配置的域名应在公众号JS接口安全域名下。测试过程中使用到了nginx，所以附上nginx的配置代码。
+* 找到本地host文件
+  windows系统：C:\Windows\System32\drivers\etc
+```
+127.0.0.1	localhost
+127.0.0.1	www.example.com
+```
+* nginx开机：
+```
+start nginx
+```
+* 重启nginx
+```
+nginx -s reload
+```
+* 配置nginx: D:\nginx-1.14.0\nginx-1.14.0\conf\nginx.conf
+```
+server {
+        listen       80;
+        server_name  www.example.com;
+        // 跨域配置
+        location ^~ /h5/ {
+            proxy_pass http://xxx.cn;
+        }
+        // 代理到本地
+        location / {
+            proxy_pass http://localhost:52152;
+        }
+        # location / {
+        #     root   html;
+        #     index  index.html index.htm;
+        # }
+    }
+```
+其他情况请参考几篇不错的文章：
+    https://juejin.im/post/5aef2db3f265da0b9c10899e
+    https://www.jianshu.com/p/1a35e1dbe1ad
+另附本项目github地址：https://github.com/clara222/wxh5
